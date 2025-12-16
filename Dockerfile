@@ -3,6 +3,10 @@ FROM ${KEYCLOAK_BASE_IMAGE} AS builder
 
 # Configure build properties
 ENV KC_DB=postgres
+ENV KC_HEALTH_ENABLED=true
+ENV KC_METRICS_ENABLED=true
+ENV KC_EVENT_METRICS_USER_ENABLED=true
+ENV KC_TRACING_ENABLED=true
 # tbc...
 
 # Copy build relevant resources

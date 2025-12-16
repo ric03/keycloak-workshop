@@ -47,9 +47,56 @@ services:
     build: .
     command: start --optimized
     environment:
-      # tbc...
+      KC_DB_URL_HOST: postgres
+      KC_DB_URL_PORT: "5432"
+      KC_DB_URL_DATABASE: keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: passw0rd
+      KC_PROXY_HEADERS: xforwarded
+      KC_HOSTNAME: https://localhost:8443
+      #KC_HOSTNAME_STRICT: "false"
+      #KC_HTTP_ENABLED: "true"
+      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/certs/localhost.crt
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/certs/localhost.key
+      # bootstrap only on init
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_BOOTSTRAP_ADMIN_CLIENT_ID: terraform
+      KC_BOOTSTRAP_ADMIN_CLIENT_SECRET: S3cr3t!
+      # Metric config
+      KC_EVENT_METRICS_USER_EVENTS: login,logout,refresh_token
+      KC_EVENT_METRICS_USER_TAGS: realm,clientId,idp
+      KC_TRACING_ENDPOINT: http://jaeger:4317
+      #KC_TRACING_SAMPLER_RATION: "0.2"
     deploy:
       replicas: 2
+    networks:
+      - kc
+    depends_on:
+      - postgres
+
+  eximporter:
+    image: keycloak-workshop
+    build: .
+    # Export master realm including users
+    #command: export --optimized --dir /opt/keycloak/data/export --realm master
+    # Import generic realm
+    command: import --optimized --dir /opt/keycloak/data/import --override false
+    environment:
+      KC_DB_URL_HOST: postgres
+      KC_DB_URL_PORT: "5432"
+      KC_DB_URL_DATABASE: keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: passw0rd
+      # Do not connect to infinispan
+      KC_CACHE: local
+      # Disable tracing
+      KC_TRACING_SAMPLER_RATIO: "0.0"
+      # Import: inject custom variable into generic realm
+      CUSTOM_REALM_NAME: "my fancy realm..."
+    volumes:
+      - ./export:/opt/keycloak/data/export
+      - ./import:/opt/keycloak/data/import
     networks:
       - kc
     depends_on:

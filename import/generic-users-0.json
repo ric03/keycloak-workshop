@@ -1,0 +1,54 @@
+{
+  "realm": "generic",
+  "users": [
+    {
+      "username": "admin",
+      "emailVerified": false,
+      "enabled": true,
+      "createdTimestamp": 1765879118676,
+      "totp": false,
+      "credentials": [
+        {
+          "type": "password",
+          "createdDate": 1765879119205,
+          "secretData": "{\"value\":\"tsoH3weG9gumUAgapBMPwJsqSLWPQ7HWyAhCVElRBMk=\",\"salt\":\"Y8a/NwBCgKpmsix5aVeR6A==\",\"additionalParameters\":{}}",
+          "credentialData": "{\"hashIterations\":5,\"algorithm\":\"argon2\",\"additionalParameters\":{\"hashLength\":[\"32\"],\"memory\":[\"7168\"],\"type\":[\"id\"],\"version\":[\"1.3\"],\"parallelism\":[\"1\"]}}"
+        }
+      ],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "default-roles-generic",
+        "admin"
+      ],
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "username": "tom",
+      "emailVerified": false,
+      "enabled": true,
+      "createdTimestamp": 1765882390771,
+      "totp": false,
+      "credentials": [
+        {
+          "type": "password",
+          "userLabel": "My password",
+          "createdDate": 1765882430546,
+          "secretData": "{\"value\":\"kg58bQ/RFyIhUvFTFdxA6/K9ovntCJfwyZjW43K+Cn0=\",\"salt\":\"gTS4Y1n2r78R+ipjj73LkA==\",\"additionalParameters\":{}}",
+          "credentialData": "{\"hashIterations\":5,\"algorithm\":\"argon2\",\"additionalParameters\":{\"hashLength\":[\"32\"],\"memory\":[\"7168\"],\"type\":[\"id\"],\"version\":[\"1.3\"],\"parallelism\":[\"1\"]}}"
+        }
+      ],
+      "disableableCredentialTypes": [],
+      "requiredActions": [
+        "UPDATE_PASSWORD"
+      ],
+      "realmRoles": [
+        "default-roles-generic",
+        "admin"
+      ],
+      "notBefore": 0,
+      "groups": []
+    }
+  ]
+}
